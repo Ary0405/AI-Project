@@ -1,3 +1,5 @@
+from rubix_cube_display import display_cube
+
 def rotate_clockwise(subarray):
     transposed_subarray = [list(row) for row in zip(*subarray)]
     clockwise_rotated_subarray = [list(reversed(row)) for row in transposed_subarray]
