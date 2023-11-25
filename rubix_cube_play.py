@@ -72,14 +72,14 @@ solved_state = faces
 solution = []
 for i in range(len(middle_stages) - 1, -1, -1):
     if i == len(middle_stages) - 1:
-        solution = a_star_solve_cube(scrambledCube, middle_stages[i], possibleMoves, n, pattern_db, heuristic2)
+        solution = a_star_solve_cube(scrambledCube, middle_stages[i], possibleMoves, n, pattern_db, goal_pull_heuristic)
     else:
-        temp_solution = a_star_solve_cube(middle_stages[i], middle_stages[i + 1], possibleMoves, n, pattern_db, heuristic2)
+        temp_solution = a_star_solve_cube(middle_stages[i], middle_stages[i + 1], possibleMoves, n, pattern_db, goal_pull_heuristic)
         if temp_solution:
             solution += temp_solution
 
 # Final solving
-temp_solution = a_star_solve_cube(middle_stages[0], solved_state, possibleMoves, n, pattern_db, heuristic2)
+temp_solution = a_star_solve_cube(middle_stages[0], solved_state, possibleMoves, n, pattern_db, goal_pull_heuristic)
 if temp_solution:
     solution += temp_solution
 

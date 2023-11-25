@@ -29,3 +29,18 @@ def generate_pattern_positions(n):
         for j in range(center - 1, center + 2):
             pattern_positions.append((i, j))
     return pattern_positions
+
+def goal_pull_heuristic(cube, solved_state):
+    distance = 0
+
+    for face1, face2 in zip(cube, solved_state):
+        for row1, row2 in zip(face1, face2):
+            for color1, color2 in zip(row1, row2):
+                if color1 != color2:
+                    distance += goal_pull_distance(color1, color2)
+
+    return distance
+
+def goal_pull_distance(color1, color2):
+    color_mapping = {'R': 0, 'G': 1, 'B': 2, 'Y': 3, 'W': 4, 'O': 5}
+    return abs(color_mapping[color1] - color_mapping[color2])
