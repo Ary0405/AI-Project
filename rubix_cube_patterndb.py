@@ -4,16 +4,20 @@ class PatternDatabase:
         self.pattern_positions = pattern_positions
         self.database = {}
 
-    def generate_pattern(self, cube_state):
-        pattern = []
+    # def generate_pattern(self, cube_state):
+    #     pattern = []
 
-        for i, j in self.pattern_positions:
-            if 0 <= i < len(cube_state) and 0 <= j < len(cube_state[0]):
-                pattern.append(tuple(cube_state[i][j]))
-            else:
-                continue
+    #     for i, j in self.pattern_positions:
+    #         if 0 <= i < len(cube_state) and 0 <= j < len(cube_state[0]):
+    #             pattern.append(tuple(cube_state[i][j]))
+    #         else:
+    #             continue
 
-        return tuple(pattern) 
+    #     return tuple(pattern) 
+    
+    def generate_pattern(self, cube_state):   #better implementation
+        return tuple(tuple(cube_state[i][j]) for i, j in self.pattern_positions if 0 <= i < self.n and 0 <= j < self.n)
+
 
     def compute_heuristic(self, cube_state):
         pattern = self.generate_pattern(cube_state)
