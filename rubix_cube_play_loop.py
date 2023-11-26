@@ -13,7 +13,7 @@ scrambleMoves = int(input("How many moves you want for scrambling? "))
 results = []
 
 # Loop over 10 iterations
-for iteration in range(1, 6):
+for iteration in range(1,6):
     # Start the timer
     start_time = time.time()
 
@@ -50,27 +50,11 @@ for iteration in range(1, 6):
     middle_stages = []
     no_of_middle_stages = 0
     gap_between_stages = 0
-    if n < 5 :
-        no_of_middle_stages = 1
-        gap_between_stages = 3
-    elif n>5 and n < 7 :
-        no_of_middle_stages = 2
-        gap_between_stages = 2
-    elif n > 7  and n < 15:
-        no_of_middle_stages = 3
-        gap_between_stages = 3
-    else:
-        no_of_middle_stages = 6
-        gap_between_stages = 3
 
     for move in selectedMoves:
         scrambledCube = apply_move(scrambledCube, move, n)
-        if len(selectedMoves) > 10:
-            if selectedMoves.index(move) % 2 == 0:
-                middle_stages.append(scrambledCube)
-        else :
-            if selectedMoves.index(move) % 2 == 0:
-                middle_stages.append(scrambledCube)
+        if selectedMoves.index(move) % 2 == 0:
+            middle_stages.append(scrambledCube)
 
     # Initializing pattern database
     pattern_positions = generate_pattern_positions(n)
