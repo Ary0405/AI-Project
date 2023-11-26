@@ -3,6 +3,13 @@ from rubix_cube_display import display_cube
 from rubix_cube_move import apply_move
 
 def solve_cube(initial_state, solved_state, possible_moves, n, heuristic, pattern_db):
+    def is_goal_state(state):
+        return state == solved_state
+
+    def compute_priority(state, moves_so_far):
+        heuristic_value = pattern_db.compute_heuristic(state)
+        return len(moves_so_far) + heuristic(state, solved_state) + heuristic_value
+
     visited_states = set()
     queue = deque([(initial_state, [])])
     initial_state_tuple = tuple(tuple(row) for face in initial_state for row in face)
@@ -16,18 +23,12 @@ def solve_cube(initial_state, solved_state, possible_moves, n, heuristic, patter
         print("Moves So Far:", moves_so_far)
         print("-----------------------------------")
 
-        if current_state == solved_state:
+        if is_goal_state(current_state):
             return moves_so_far
 
-        # Compute the heuristic value using the pattern database
-        heuristic_value = pattern_db.compute_heuristic(current_state)
-        queue = deque(
-            sorted(
-                queue,
-                key=lambda x: len(x[1])
-                + heuristic(x[0], solved_state)
-                + heuristic_value,
-            )
+        priority_queue = sorted(
+            queue,
+            key=lambda x: compute_priority(x[0], x[1])
         )
 
         for move in possible_moves:
