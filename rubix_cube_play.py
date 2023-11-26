@@ -3,6 +3,7 @@ from rubix_cube_move import apply_move
 from rubix_cube_patterndb import PatternDatabase
 from rubix_cube_astar import a_star_solve_cube
 from rubix_cube_heuristics import *
+from rubix_cube_bidirect import bidirectional_search
 
 n = int(input("Please enter the value of n : "))
 
@@ -52,6 +53,7 @@ pattern_positions = generate_pattern_positions(n)
 pattern_db = PatternDatabase(n, pattern_positions)
 
 solved_state = faces
+#solution = bidirectional_search(scrambledCube, solved_state, possibleMoves, n, pattern_db, heuristic)
 
 # Solving the cube
 solution = []
