@@ -2,13 +2,9 @@ from collections import deque
 from rubix_cube_display import display_cube
 from rubix_cube_move import apply_move
 
-def solve_cube(initial_state, solved_state, possible_moves, n, heuristic, pattern_db):
+def solve_cube_with_heuristic(initial_state, solved_state, possible_moves, n, heuristic):
     def is_goal_state(state):
         return state == solved_state
-
-    def compute_priority(state, moves_so_far):
-        heuristic_value = pattern_db.compute_heuristic(state)
-        return len(moves_so_far) + heuristic(state, solved_state) + heuristic_value
 
     visited_states = set()
     queue = deque([(initial_state, [])])
@@ -26,18 +22,15 @@ def solve_cube(initial_state, solved_state, possible_moves, n, heuristic, patter
         if is_goal_state(current_state):
             return moves_so_far
 
-        priority_queue = sorted(
-            queue,
-            key=lambda x: compute_priority(x[0], x[1])
-        )
+        # Generate successors and sort them based on the heuristic value
+        successors = [(apply_move(current_state, move, n), moves_so_far + [move]) for move in possible_moves]
+        successors.sort(key=lambda x: heuristic(x[0], solved_state))
 
-        for move in possible_moves:
-            new_state = apply_move(current_state, move, n)
+        for new_state, new_moves in successors:
             new_state_tuple = tuple(tuple(row) for face in new_state for row in face)
 
             if new_state_tuple not in visited_states:
                 visited_states.add(new_state_tuple)
-                new_moves = moves_so_far + [move]
                 queue.append((new_state, new_moves))
 
     return None

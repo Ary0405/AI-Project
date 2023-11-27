@@ -1,5 +1,6 @@
 from rubix_cube_display import display_cube
 
+
 def rotate_clockwise(subarray):
     transposed_subarray = [list(row) for row in zip(*subarray)]
     clockwise_rotated_subarray = [list(reversed(row)) for row in transposed_subarray]
@@ -13,7 +14,9 @@ def rotate_anticlockwise(subarray):
     ]
     return anticlockwise_rotated_subarray
 
+
 colors = ["R", "G", "O", "B", "Y", "W"]
+
 
 def apply_move(cube, moves, n):
     new_cube_faces = []
@@ -126,17 +129,17 @@ def apply_move(cube, moves, n):
             if side == 0:
                 new_cube_faces[3] = rotate_clockwise(cube[3])
 
-                new_cube_faces[0][n-1] = cube[5][n-1]
-                new_cube_faces[4][n-1] = cube[0][n-1]
-                new_cube_faces[2][n-1] = cube[4][n-1]
-                new_cube_faces[5][n-1] = cube[2][n-1]
+                new_cube_faces[0][n - 1] = cube[5][n - 1]
+                new_cube_faces[4][n - 1] = cube[0][n - 1]
+                new_cube_faces[2][n - 1] = cube[4][n - 1]
+                new_cube_faces[5][n - 1] = cube[2][n - 1]
 
                 new_cube_faces[1] = cube[1]
 
-                new_cube_faces[0][0:n-1] = cube[0][0:n-1]
-                new_cube_faces[2][0:n-1] = cube[2][0:n-1]
-                new_cube_faces[4][0:n-1] = cube[4][0:n-1]
-                new_cube_faces[5][0:n-1] = cube[5][0:n-1]
+                new_cube_faces[0][0 : n - 1] = cube[0][0 : n - 1]
+                new_cube_faces[2][0 : n - 1] = cube[2][0 : n - 1]
+                new_cube_faces[4][0 : n - 1] = cube[4][0 : n - 1]
+                new_cube_faces[5][0 : n - 1] = cube[5][0 : n - 1]
             else:
                 new_cube_faces[3] = cube[3]
                 new_cube_faces[1] = cube[1]
@@ -161,9 +164,9 @@ def apply_move(cube, moves, n):
             if side == 0:
                 new_cube_faces[2] = rotate_anticlockwise(cube[2])
                 for i in range(int(n)):
-                    new_cube_faces[1][i][n - 1] = cube[4][i][n - 1]
+                    new_cube_faces[1][i][n - 1] = cube[4][n - i - 1][n - 1]
                     new_cube_faces[4][i][n - 1] = cube[3][i][n - 1]
-                    new_cube_faces[3][i][n - 1] = cube[5][i][n - 1]
+                    new_cube_faces[3][i][n - 1] = cube[5][n - i - 1][n - 1]
                     new_cube_faces[5][i][n - 1] = cube[1][i][n - 1]
 
                 new_cube_faces[0] = cube[0]
@@ -177,9 +180,13 @@ def apply_move(cube, moves, n):
                                 new_cube_faces[face][i][j] = cube[face][i][j]
             else:
                 for i in range(int(n)):
-                    new_cube_faces[1][i][n - 1 - side] = cube[4][i][n - 1 - side]
+                    new_cube_faces[1][i][n - 1 - side] = cube[4][n - i - 1][
+                        n - 1 - side
+                    ]
                     new_cube_faces[4][i][n - 1 - side] = cube[3][i][n - 1 - side]
-                    new_cube_faces[3][i][n - 1 - side] = cube[5][i][n - 1 - side]
+                    new_cube_faces[3][i][n - 1 - side] = cube[5][n - i - 1][
+                        n - 1 - side
+                    ]
                     new_cube_faces[5][i][n - 1 - side] = cube[1][i][n - 1 - side]
 
                 new_cube_faces[0] = cube[0]
@@ -205,9 +212,9 @@ def apply_move(cube, moves, n):
                 new_cube_faces[2] = rotate_clockwise(cube[2])
                 for i in range(int(n)):
                     new_cube_faces[1][i][n - 1] = cube[5][i][n - 1]
-                    new_cube_faces[4][i][n - 1] = cube[1][i][n - 1]
+                    new_cube_faces[4][i][n - 1] = cube[1][n - i - 1][n - 1]
                     new_cube_faces[3][i][n - 1] = cube[4][i][n - 1]
-                    new_cube_faces[5][i][n - 1] = cube[3][i][n - 1]
+                    new_cube_faces[5][i][n - 1] = cube[3][n - i - 1][n - 1]
 
                 new_cube_faces[0] = cube[0]
 
@@ -221,9 +228,13 @@ def apply_move(cube, moves, n):
             else:
                 for i in range(int(n)):
                     new_cube_faces[1][i][n - 1 - side] = cube[5][i][n - 1 - side]
-                    new_cube_faces[4][i][n - 1 - side] = cube[1][i][n - 1 - side]
+                    new_cube_faces[4][i][n - 1 - side] = cube[1][n - i - 1][
+                        n - 1 - side
+                    ]
                     new_cube_faces[3][i][n - 1 - side] = cube[4][i][n - 1 - side]
-                    new_cube_faces[5][i][n - 1 - side] = cube[3][i][n - 1 - side]
+                    new_cube_faces[5][i][n - 1 - side] = cube[3][n - i - 1][
+                        n - 1 - side
+                    ]
 
                 new_cube_faces[0] = cube[0]
                 new_cube_faces[2] = cube[2]
@@ -249,9 +260,9 @@ def apply_move(cube, moves, n):
             if side == 0:
                 new_cube_faces[0] = rotate_clockwise(cube[0])
                 for i in range(int(n)):
-                    new_cube_faces[1][i][0] = cube[4][i][0]
+                    new_cube_faces[1][i][0] = cube[4][n - i - 1][0]
                     new_cube_faces[4][i][0] = cube[3][i][0]
-                    new_cube_faces[3][i][0] = cube[5][i][0]
+                    new_cube_faces[3][i][0] = cube[5][n - i - 1][0]
                     new_cube_faces[5][i][0] = cube[1][i][0]
 
                 new_cube_faces[2] = cube[2]
@@ -265,9 +276,9 @@ def apply_move(cube, moves, n):
                                 new_cube_faces[face][i][j] = cube[face][i][j]
             else:
                 for i in range(int(n)):
-                    new_cube_faces[1][i][side] = cube[4][i][side]
+                    new_cube_faces[1][i][side] = cube[4][n - i - 1][side]
                     new_cube_faces[4][i][side] = cube[3][i][side]
-                    new_cube_faces[3][i][side] = cube[5][i][side]
+                    new_cube_faces[3][i][side] = cube[5][n - i - 1][side]
                     new_cube_faces[5][i][side] = cube[1][i][side]
 
                 new_cube_faces[0] = cube[0]
@@ -293,9 +304,9 @@ def apply_move(cube, moves, n):
                 new_cube_faces[0] = rotate_anticlockwise(cube[0])
                 for i in range(int(n)):
                     new_cube_faces[1][i][0] = cube[5][i][0]
-                    new_cube_faces[4][i][0] = cube[1][i][0]
+                    new_cube_faces[4][n - i - 1][0] = cube[1][i][0]
                     new_cube_faces[3][i][0] = cube[4][i][0]
-                    new_cube_faces[5][i][0] = cube[3][i][0]
+                    new_cube_faces[5][n - i - 1][0] = cube[3][i][0]
 
                 new_cube_faces[2] = cube[2]
 
@@ -309,9 +320,9 @@ def apply_move(cube, moves, n):
             else:
                 for i in range(int(n)):
                     new_cube_faces[1][i][side] = cube[5][i][side]
-                    new_cube_faces[4][i][side] = cube[1][i][side]
+                    new_cube_faces[4][n - i - 1][side] = cube[1][i][side]
                     new_cube_faces[3][i][side] = cube[4][i][side]
-                    new_cube_faces[5][i][side] = cube[3][i][side]
+                    new_cube_faces[5][n - i - 1][side] = cube[3][i][side]
 
                 new_cube_faces[0] = cube[0]
                 new_cube_faces[2] = cube[2]
@@ -337,13 +348,12 @@ def apply_move(cube, moves, n):
             if side == 0:
                 new_cube_faces[5] = rotate_clockwise(cube[5])
                 new_cube_faces[4] = cube[4]
-
-                last_column_matrix1 = [row[-1] for row in cube[0]]
-                new_cube_faces[1][-1] = last_column_matrix1
+                for i in range(int(n)):
+                    new_cube_faces[1][-1][i] = cube[0][n - i - 1][-1]
                 for i in range(int(n)):
                     new_cube_faces[2][i][0] = cube[1][-1][i]
                 for i in range(int(n)):
-                    new_cube_faces[3][-1][i] = cube[2][i][0]
+                    new_cube_faces[3][-1][i] = cube[2][n - i - 1][0]
                 for i in range(int(n)):
                     new_cube_faces[0][i][-1] = cube[3][-1][i]
 
@@ -364,12 +374,12 @@ def apply_move(cube, moves, n):
             else:
                 new_cube_faces[5] = cube[5]
                 new_cube_faces[4] = cube[4]
-                last_column_matrix1 = [row[-1 - side] for row in cube[0]]
-                new_cube_faces[1][-1 - side] = last_column_matrix1
+                for i in range(int(n)):
+                    new_cube_faces[1][-1-side][i] = cube[0][n - i - 1][-1-side]
                 for i in range(int(n)):
                     new_cube_faces[2][i][side] = cube[1][-1 - side][i]
                 for i in range(int(n)):
-                    new_cube_faces[3][-1 - side][i] = cube[2][i][side]
+                    new_cube_faces[3][-1 - side][i] = cube[2][n - i - 1][side]
                 for i in range(int(n)):
                     new_cube_faces[0][i][-1 - side] = cube[3][-1 - side][i]
 
@@ -401,11 +411,11 @@ def apply_move(cube, moves, n):
                 new_cube_faces[5] = rotate_anticlockwise(cube[5])
                 new_cube_faces[4] = cube[4]
                 for i in range(int(n)):
-                    new_cube_faces[0][i][-1] = cube[1][-1][i]
+                    new_cube_faces[0][i][-1] = cube[1][-1][n - i - 1]
                 for i in range(int(n)):
                     new_cube_faces[1][-1][i] = cube[2][i][0]
                 for i in range(int(n)):
-                    new_cube_faces[2][i][0] = cube[3][-1][i]
+                    new_cube_faces[2][i][0] = cube[3][-1][n - i - 1]
                 last_column_matrix1 = [row[-1] for row in cube[0]]
                 new_cube_faces[3][-1] = last_column_matrix1
 
@@ -427,11 +437,11 @@ def apply_move(cube, moves, n):
                 new_cube_faces[5] = cube[5]
                 new_cube_faces[4] = cube[4]
                 for i in range(int(n)):
-                    new_cube_faces[0][i][-1 - side] = cube[1][-1 - side][i]
+                    new_cube_faces[0][i][-1 - side] = cube[1][-1 - side][n - i - 1]
                 for i in range(int(n)):
                     new_cube_faces[1][-1 - side][i] = cube[2][i][side]
                 for i in range(int(n)):
-                    new_cube_faces[2][i][side] = cube[3][-1 - side][i]
+                    new_cube_faces[2][i][side] = cube[3][-1 - side][n - i - 1]
                 last_column_matrix1 = [row[-1 - side] for row in cube[0]]
                 new_cube_faces[3][-1 - side] = last_column_matrix1
 
@@ -466,11 +476,11 @@ def apply_move(cube, moves, n):
                 new_cube_faces[5] = cube[5]
 
                 for i in range(int(n)):
-                    new_cube_faces[1][0][i] = cube[0][i][0]
+                    new_cube_faces[1][0][i] = cube[0][n - i - 1][0]
                 for i in range(int(n)):
                     new_cube_faces[2][i][-1] = cube[1][0][i]
                 for i in range(int(n)):
-                    new_cube_faces[3][0][i] = cube[2][i][-1]
+                    new_cube_faces[3][0][i] = cube[2][n - i - 1][-1]
                 for i in range(int(n)):
                     new_cube_faces[0][i][0] = cube[3][0][i]
 
@@ -492,11 +502,11 @@ def apply_move(cube, moves, n):
                 new_cube_faces[5] = cube[5]
                 new_cube_faces[4] = cube[4]
                 for i in range(int(n)):
-                    new_cube_faces[1][side][i] = cube[0][i][side]
+                    new_cube_faces[1][side][i] = cube[0][n - i - 1][side]
                 for i in range(int(n)):
                     new_cube_faces[2][i][-1 - side] = cube[1][side][i]
                 for i in range(int(n)):
-                    new_cube_faces[3][side][i] = cube[2][i][-1 - side]
+                    new_cube_faces[3][side][i] = cube[2][n - i - 1][-1 - side]
                 for i in range(int(n)):
                     new_cube_faces[0][i][side] = cube[3][side][i]
 
@@ -589,3 +599,11 @@ def apply_move(cube, moves, n):
                         new_cube_faces[0][i][j] = cube[0][i][j]
 
     return new_cube_faces
+
+
+def isSame(state1, state2):
+    if state1 == state2:
+        return True
+    else:
+        return False
+

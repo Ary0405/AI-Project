@@ -1,4 +1,4 @@
-def heuristic(cube, solved_state):
+def heuristic_hamming_distance(cube, solved_state):
     distance = 0
     for face1, face2 in zip(cube, solved_state):
         for row1, row2 in zip(face1, face2):
